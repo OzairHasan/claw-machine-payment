@@ -5,7 +5,6 @@ const app = express();
 const bodyParser = require("body-parser");
 const { Http2ServerRequest } = require('http2');
 app.use(bodyParser.urlencoded({extended : true}));
-const port = 3000;
 var isPaymentMade = false;
 
 app.get("/", (req, res) => {
@@ -32,6 +31,11 @@ app.post("/paid/", (req, res) => {
     res.redirect("/result/");
 });
 
+let port = process.env.PORT;
+if (port == null || port == "") {
+    port = 3000;
+}
+
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}!`);
+    console.log(`App listening on port ${port}!`);
 });
