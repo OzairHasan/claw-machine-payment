@@ -5,6 +5,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const { Http2ServerRequest } = require('http2');
 app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.static(__dirname + '/public'));
 var isPaymentMade = false;
 
 app.get("/", (req, res) => {
@@ -21,7 +22,7 @@ app.get("/checkstatus/", (req, res) => {
 });
 
 app.get("/result/", (req, res) => {
-    res.send("Enjoy your game!");
+    res.sendFile(path.join(__dirname, "result.html"));
 });
 
 app.post("/paid/", (req, res) => {
